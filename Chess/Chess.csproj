@@ -65,6 +65,13 @@
     <Compile Include="Piece.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solved\Board.cs" />
+    <Compile Include="Solved\ChessProblem.cs" />
+    <Compile Include="Solved\ChessProblem_Test.cs" />
+    <Compile Include="Solved\ChessStatus.cs" />
+    <Compile Include="Solved\ColoredPiece.cs" />
+    <Compile Include="Solved\Location.cs" />
+    <Compile Include="Solved\Piece.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ChessTests\*">
