@@ -1,5 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using ControlDigit.Solved;
 
 namespace ControlDigit
 {
@@ -25,10 +28,28 @@ namespace ControlDigit
 			return result;
 		}
 
-		public static int ControlDigit2(this long number)
-		{
-			throw new NotImplementedException();
-		}
+	    public static int ControlDigit2(this long number)
+	    {
+	        var result = number
+	            .GetDigits()
+	            .Zip(Factors, (x, y) => x*y)
+	            .Sum()
+                % 11;
+	        return result == 10 ? 1 : result;
+	    }
+
+	    public static IEnumerable<int> GetDigits(this long number)
+	    {
+            var buf = number;
+            do
+	        {
+	            yield return (int) buf % 10;
+	            buf /= 10;
+	        }
+	        while (buf > 0) ;
+	    }
+
+	    private static readonly IEnumerable<int> Factors = new int[] {1, 3}.Repeat();
 	}
 
 	[TestFixture]
@@ -59,7 +80,7 @@ namespace ControlDigit
 			for (int i = 0; i < 10000000; i++)
 				12345678L.ControlDigit2();
 		}
-
+        
 		[Test]
 		public void CompareImplementations()
 		{

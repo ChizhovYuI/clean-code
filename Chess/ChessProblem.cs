@@ -30,13 +30,13 @@ namespace Chess
 
         private static bool IsSafeMove(Location locFrom, Location locTo)
         {
-            var hasMoves = false;
+            var isSafe = false;
             var old = board.Get(locTo);
             SetMove(locFrom, locTo, ColoredPiece.Empty);
             if (!IsCheckForWhite())
-                hasMoves = true;
+                isSafe = true;
             SetMove(locTo, locFrom, old);
-            return hasMoves;
+            return isSafe;
         }
 
         private static void SetMove(Location locFrom, Location locTo, ColoredPiece piece)
