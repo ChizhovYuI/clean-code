@@ -60,7 +60,26 @@ namespace Chess
 			Set(from, ColoredPiece.Empty);
 			return new PieceMove(this, from, to, old);
 		}
-	}
+
+	    public void SetMove(Location locFrom, Location locTo, ColoredPiece piece)
+	    {
+	        Set(locTo, Get(locFrom));
+            Set(locFrom, piece);
+;	    }
+
+	    public bool IsCheckForWhite()
+        {
+            return GetPieces(PieceColor.Black)
+                .SelectMany(GetAllMovesForPiece)
+                .Any(IsWhiteKingLocation);
+        }
+
+        private IEnumerable<Location> GetAllMovesForPiece(Location loc)
+            => Get(loc).Piece.GetMoves(loc, this);
+
+        private bool IsWhiteKingLocation(Location loc)
+            => Get(loc).Is(PieceColor.White, Piece.King);
+    }
 
 	public class PieceMove
 	{
@@ -77,7 +96,7 @@ namespace Chess
 			this.oldDestinationPiece = oldDestinationPiece;
 		}
 
-		public void Undo()
+        public void Undo()
 		{
 			board.Set(from, board.Get(to));
 			board.Set(to, oldDestinationPiece);
